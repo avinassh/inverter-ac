@@ -1,0 +1,139 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <title>Should I buy an Inverter AC?</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js"></script>
+    <script src="calc.js"></script>
+    <style type="text/css">
+    body {
+        margin: 2%;
+    }
+    .container {
+        margin: 1%;
+    }
+    .hidden { 
+        display: none;
+    }
+    </style>
+</head>
+<body>
+
+    <div class="ui text container">
+    <h1 class="ui center aligned header">Should I buy an Inverter AC?</h1>
+    <h3 class="ui center aligned header"></h3>
+    </div>
+
+    <div class="ui text container">
+        <div class="ui segment">
+        <p>This page helps you decide whether you should buy an Inverter AC or a Standard one (i.e. Non inverter).</p>
+        <p>You have to consider many factors when you are deciding between Inverter and Standard. For example, comparatively Inverters keep the cooling rate constant and uniform, which is more comforting than the Standard one. However this page only compares the pricing difference and electricity units and helps you decide whether its 'worth' to buy an Inverter or not.</p>
+        <p>Usually Inverters are said to be 30% - 40% power efficient than non inverter ones. In below calculations, it assumes that Inverters are 20% efficient than Standard ones. You can change this parameter if you know the efficiency.</p>
+        </div>
+    </div>
+
+    <div class="ui text container">
+        <form class="ui form" id='calc-form'>
+          <div class="field">
+            <label>Hours of usage per day</label>
+            <p>How many hours you are going to use the AC for?</p>
+            <input type="number" name="daily-usage-hours" placeholder="Eg. 10 hours">
+          </div>
+          <div class="field">
+            <label>Days of usage in an year</label>
+            <p>How many days in an year you are going to use the AC? 4 months? 8 months?</p>
+            <input type="number" name="yearly-usage-days" placeholder="Eg. 180 days">
+          </div>
+          <div class="field">
+            <label>The cost of electricity (per unit)</label>
+            <p>How much you will be charged for per unit of electricity? Default value here is 6 Rs.</p>
+            <input type="number" name="per-unit-cost" value="6" placeholder="Eg. 6 Rs">
+          </div>
+
+          <div class="field">
+            <label>Inverter AC power efficiency</label>
+            <p>Usually Inverter AC are said to consume 30% - 40% less energy than Standard ones. However they are tested in factory conditions and usually you won't get same power efficiency. (Have you ever gotten same mileage as your Car manufacturer claim?). So if you know and sure about it, you can change the efficiency parameter here. By default, 20% is considered i.e. You would consume 20% less units compared to Standard one.</p>
+            <input type="number" name="inverter-efficiency" value="20" placeholder="Eg. 20%">
+          </div>
+
+            <div class="field">
+                <label>Power Consumption (in Watts)</label>
+                    <p>Power consumption of ACs are usually mentioned in Watts on the product page. For example, this <a href="http://www.amazon.in/teehee/dp/B00LWRE2SQ/">Voltas 1.5 Ton AC</a> has power consumption mentioned as 1438 Watts</p>
+                    <div class="two fields">
+                    <div class="field">
+                    <label>Inverter AC Power Consumption</label>
+                    <input type="number" name="power-inverter" placeholder="Eg. 1990W">
+                    </div>
+                    <div class="field">
+                    <label>Standard AC Power Consumption</label>
+                    <input type="number" name="power-non-inverter" placeholder="Eg. 2100W">
+                    </div>
+                </div>
+            </div>
+
+            <div class="field">
+                <label>Cost of the AC</label>
+                    <p>Enter the cost of AC here. Inverter ACs are usually cost more compared to standard ones.</p>
+                    <div class="two fields">
+                    <div class="field">
+                    <label>Cost of Inverter AC</label>
+                    <input type="number" name="cost-inverter" placeholder="Eg. 45,000 Rs.">
+                    </div>
+                    <div class="field">
+                    <label>Cost of Standard AC</label>
+                    <input type="number" name="cost-non-inverter" placeholder="Eg. 30,000 Rs.">
+                    </div>
+                </div>
+            </div>
+          <center><button class="ui primary button" type="submit">Submit</button></center>
+          <div class="ui error message"></div>
+        </form>
+    </div>
+
+    <div class="ui text container hidden">
+        <table class="ui unstackable celled table hidden">
+          <thead>
+            <tr>
+            <th></th>
+            <th>Inverter AC</th>
+            <th>Standard AC</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Daily Units Consumption</td>
+              <td id='daily-consum-inv'>Cell</td>
+              <td id='daily-consum-std'>Cell</td>
+            </tr>
+            <tr>
+              <td>Yearly Units Consumption</td>
+              <td id='yearly-consum-inv'>Cell</td>
+              <td id='yearly-consum-std'>Cell</td>
+            </tr>
+            <tr>
+              <td>Yearly Electricity Cost</td>
+              <td id='yearly-cost-inv'>Cell</td>
+              <td id='yearly-cost-std'>Cell</td>
+            </tr>
+            <tr>
+              <td>Yearly Savings (in Rs.)</td>
+              <td id='yearly-savings' colspan="2">Cell</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+
+    <div class="ui text container">
+        <p class="hidden">As you can see, you will save about Rs. <span id=yearly-savings-span>0</span> per year with an Inverter AC and it will take about <span id=years-to-recover>0</span> years to recover the extra amount you have spent on Inverter.</p>
+    </div>
+
+    <!-- Github Ribbon Start-->
+    <a href="https://github.com/avinassh/inverter-ac" class="github-corner"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#0E2E3B; color:#FFFFFF; position: absolute; top: 0; border: 0; right: 0;"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <!-- Github Ribbon End-->
+
+</body>
+</html>
